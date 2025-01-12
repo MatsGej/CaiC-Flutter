@@ -1,3 +1,13 @@
+/*
+ * SensorScannerPage.dart
+ * 
+ * This file defines the SensorScannerPage widget, which is a stateful widget that provides
+ * a multi-sensor scanning interface. The page includes tabs for different sensor scanning
+ * functionalities such as Bluetooth, Wi-Fi, Magnetometer, and Height (Barometer) scanning.
+ * It also features a logging mechanism to display sensor data in real-time, which can be
+ * toggled on and off using a button in the app bar.
+ */
+
 import 'package:flutter/material.dart';
 import '../utils/permissions.dart';
 import '../widgets/log_display.dart';
@@ -18,23 +28,27 @@ class SensorScannerPage extends StatefulWidget {
 
 class _SensorScannerPageState extends State<SensorScannerPage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  final List<String> _logs = [];
-  late ScrollController _scrollController;
-  bool _loggingEnabled = true; // Add a flag to control logging
+  late TabController _tabController; // Controller for managing tab selection
+  final List<String> _logs = []; // List to store log messages
+  late ScrollController
+      _scrollController; // Controller for managing scroll position in the log display
+  bool _loggingEnabled = true; // Flag to control logging
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-    _scrollController = ScrollController();
-    requestPermissions();
+    _tabController = TabController(
+        length: 4, vsync: this); // Initialize the TabController with 4 tabs
+    _scrollController = ScrollController(); // Initialize the ScrollController
+    requestPermissions(); // Request necessary permissions
   }
 
+  // Request necessary permissions for sensor access
   void requestPermissions() async {
     await Permissions.requestPermissions();
   }
 
+  // Add a log message to the log list and scroll to the bottom of the log display
   void _addLog(String log) {
     if (_loggingEnabled) {
       // Check if logging is enabled
@@ -56,6 +70,7 @@ class _SensorScannerPageState extends State<SensorScannerPage>
     }
   }
 
+  // Toggle the logging state
   void _toggleLogging() {
     setState(() {
       _loggingEnabled = !_loggingEnabled;
@@ -64,7 +79,7 @@ class _SensorScannerPageState extends State<SensorScannerPage>
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _scrollController.dispose(); // Dispose the ScrollController
     super.dispose();
   }
 
@@ -72,30 +87,40 @@ class _SensorScannerPageState extends State<SensorScannerPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Multi-Sensor Scanner'),
+        title: const Text('Multi-Sensor Scanner'), // Title of the app bar
         bottom: TabBar(
-          controller: _tabController,
+          controller: _tabController, // Attach the TabController to the TabBar
           tabs: const [
-            Tab(icon: Icon(Icons.bluetooth), text: "Bluetooth"),
-            Tab(icon: Icon(Icons.wifi), text: "Wi-Fi"),
-            Tab(icon: Icon(Icons.explore), text: "Magnetometer"),
-            Tab(icon: Icon(Icons.height), text: "Height"),
+            Tab(
+                icon: Icon(Icons.bluetooth),
+                text: "Bluetooth"), // Bluetooth tab
+            Tab(icon: Icon(Icons.wifi), text: "Wi-Fi"), // Wi-Fi tab
+            Tab(
+                icon: Icon(Icons.explore),
+                text: "Magnetometer"), // Magnetometer tab
+            Tab(
+                icon: Icon(Icons.height),
+                text: "Height"), // Height (Barometer) tab
           ],
         ),
         actions: [
           IconButton(
-            icon: Icon(_loggingEnabled ? Icons.pause : Icons.play_arrow),
-            onPressed: _toggleLogging,
+            icon: Icon(_loggingEnabled
+                ? Icons.pause
+                : Icons.play_arrow), // Icon changes based on logging state
+            onPressed: _toggleLogging, // Toggle logging when pressed
           ),
         ],
       ),
       body: TabBarView(
-        controller: _tabController,
+        controller:
+            _tabController, // Attach the TabController to the TabBarView
         children: [
-          bluetooth.BluetoothScanner(addLog: _addLog),
-          wifi.WiFiScanner(addLog: _addLog),
-          magnetometer.MagnetometerScanner(addLog: _addLog),
-          height.HeightScanner(addLog: _addLog),
+          bluetooth.BluetoothScanner(addLog: _addLog), // Bluetooth scanner
+          wifi.WiFiScanner(addLog: _addLog), // Wi-Fi scanner
+          magnetometer.MagnetometerScanner(
+              addLog: _addLog), // Magnetometer scanner
+          height.HeightScanner(addLog: _addLog), // Height (Barometer) scanner
         ],
       ),
       bottomSheet: widget.showLogPage && _loggingEnabled
@@ -104,7 +129,7 @@ class _SensorScannerPageState extends State<SensorScannerPage>
               scrollController: _scrollController,
               loggingEnabled: _loggingEnabled, // Pass the flag to LogDisplay
             )
-          : null,
+          : null, // Conditionally display the log area based on logging state
     );
   }
 }

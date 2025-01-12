@@ -44,12 +44,12 @@ To get started with this project, follow these steps:
 
 ## Usage
 
-- The main screen can be accessed through the `SensorScannerPage` widget located in `lib/screens/sensor_scanner_page.dart`.
-- The app includes tabs for different sensor scanning functionalities:
+- The app includes tabs for different sensor scanning functionalities. It allows the user to turn on or of scanning of the different types of sensors
   - **Bluetooth**: Scans for nearby Bluetooth devices.
   - **Wi-Fi**: Scans for available Wi-Fi networks.
   - **Magnetometer**: Scans for magnetic field data.
   - **Height (Barometer)**: Scans for barometric pressure and calculates height above ground.
+
 - Custom widgets can be found in `lib/widgets/log_display.dart` and can be reused throughout the application.
 
 ## Logging

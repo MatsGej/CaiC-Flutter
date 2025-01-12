@@ -1,3 +1,13 @@
+/*
+ * magnetometer_scanner.dart
+ * 
+ * This file defines the MagnetometerScanner widget, which is a stateful widget that provides
+ * functionality for scanning magnetic field data using the magnetometer sensor. The widget
+ * uses the sensors_plus package to access magnetometer data and displays the x, y, and z
+ * components of the magnetic field in real-time. It also includes buttons to start and stop
+ * the magnetometer scanning, and a logging mechanism to display sensor data.
+ */
+
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'dart:async';
@@ -13,9 +23,14 @@ class MagnetometerScanner extends StatefulWidget {
 }
 
 class _MagnetometerScannerState extends State<MagnetometerScanner> {
-  StreamSubscription? _magnetometerSubscription;
-  double _x = 0.0, _y = 0.0, _z = 0.0;
+  StreamSubscription?
+      _magnetometerSubscription; // Subscription to magnetometer events
+  double _x = 0.0,
+      _y = 0.0,
+      _z =
+          0.0; // Variables to store the x, y, and z components of the magnetic field
 
+  // Start listening to magnetometer events
   void _startMagnetometer() {
     widget.addLog('Starting magnetometer...');
     _magnetometerSubscription = magnetometerEventStream().listen((event) {
@@ -31,6 +46,7 @@ class _MagnetometerScannerState extends State<MagnetometerScanner> {
     });
   }
 
+  // Stop listening to magnetometer events
   void _stopMagnetometer() {
     widget.addLog('Stopping magnetometer...');
     _magnetometerSubscription?.cancel();
@@ -43,13 +59,16 @@ class _MagnetometerScannerState extends State<MagnetometerScanner> {
 
   @override
   void dispose() {
-    _magnetometerSubscription?.cancel();
+    _magnetometerSubscription
+        ?.cancel(); // Cancel the subscription when disposing
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double totalFieldStrength = sqrt(_x * _x + _y * _y + _z * _z);
+    double totalFieldStrength = sqrt(_x * _x +
+        _y * _y +
+        _z * _z); // Calculate the total magnetic field strength
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
