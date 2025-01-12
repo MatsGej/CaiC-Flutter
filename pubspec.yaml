@@ -1,0 +1,39 @@
+name: caic_fingerprinting
+description: A multi-sensor fingerprinting app using Flutter
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_blue_plus: ^1.0.0
+  wifi_scan: ^0.4.1+1
+  sensors_plus: ^6.1.1
+  characters: 1.3.0
+  collection: 1.19.0
+  material_color_utilities: 0.11.1
+  meta: 1.15.0
+  sensors_plus_platform_interface: ^2.0.1
+  permission_handler: ^10.2.0
+  
+dev_dependencies:
+  async: ^2.12.0
+  boolean_selector: ^2.1.2
+  clock: ^1.1.2
+  fake_async: ^1.3.2
+  leak_tracker: ^10.0.7
+  leak_tracker_flutter_testing: ^3.0.8
+  matcher: ^0.12.17
+  path: 1.9.0
+  source_span: 1.10.0
+  stack_trace: 1.12.0
+  stream_channel: 2.1.2
+  string_scanner: 1.3.0
+  term_glyph: 1.2.1
+  test_api: 0.7.3
+  vm_service: 14.3.0
