@@ -1,6 +1,8 @@
 # My Flutter App
 
-This is a Flutter application that demonstrates the use of multiple screens and custom widgets.
+This is a Flutter application that collects information from a number of sensors and displays it on the screen.
+It is the first step to create the flutter part of a fingerprinting application.
+The app includes various sensor scanning functionalities such as Bluetooth, Wi-Fi, Magnetometer, and Height (Barometer) scanning. It also features a logging mechanism to display sensor data in real-time.
 
 ## Project Structure
 
@@ -42,8 +44,19 @@ To get started with this project, follow these steps:
 
 ## Usage
 
-- The main screen can be accessed through the `HomeScreen` widget located in `lib/screens/home_screen.dart`.
-- Custom widgets can be found in `lib/widgets/custom_widget.dart` and can be reused throughout the application.
+- The main screen can be accessed through the `SensorScannerPage` widget located in `lib/screens/sensor_scanner_page.dart`.
+- The app includes tabs for different sensor scanning functionalities:
+  - **Bluetooth**: Scans for nearby Bluetooth devices.
+  - **Wi-Fi**: Scans for available Wi-Fi networks.
+  - **Magnetometer**: Scans for magnetic field data.
+  - **Height (Barometer)**: Scans for barometric pressure and calculates height above ground.
+- Custom widgets can be found in `lib/widgets/log_display.dart` and can be reused throughout the application.
+
+## Logging
+
+- The app features a logging mechanism to display sensor data in real-time.
+- Logs can be toggled on and off using the button in the app bar.
+- When logging is enabled, sensor data is displayed in the `LogDisplay` widget.
 
 ## Contributing
 
